@@ -1,53 +1,38 @@
 import "dotenv/config";
 
-import { Agent, Anthropic, Tool } from "@ainulabs/ainu";
-import { z } from "zod";
+import { createAgent } from "./agent";
+import { app } from "./app";
+
+// Wait until the server is up and listening on port 3000 before resolving.
+async function startServer() {
+  return new Promise<void>((resolve, reject) => {
+    app.listen(3000, (error) => {
+      if (error) {
+        console.error("Error starting server:", error);
+        return reject(error);
+      }
+      console.log("Server is running on http://localhost:3000");
+      resolve();
+    });
+  });
+}
 
 async function main() {
-  const provider = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
-  });
+  // Start your 'remote' server and wait for it to fully load
+  await startServer();
 
-  const weatherTool = new Tool("getWeather", {
-    description: "Get the current weather for a location",
-    parameters: z.object({
-      location: z.string().min(2).max(100),
-    }),
-    handler: async (params) => {
-      const { location } = params;
-      console.log(`Starting to fetch weather for ${location}...`);
+  // Create your agent
+  const agent = createAgent();
 
-      const startTime = Date.now();
-      // Simulate an API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  // List the agents available tools. This will output the 'remote' MCP tools along with any local tools
+  const tools = await agent.tools();
 
-      const endTime = Date.now();
-      const duration = endTime - startTime;
-
-      console.log(`Fetch duration: ${duration}ms`);
-
-      return {
-        location,
-        weather: "Sunny, 25°C",
-      };
-    },
-  });
-
-  const agent = new Agent({
-    provider,
-    settings: {
-      temperature: 0.8,
-      system: "You are an AI shiba inu.",
-      maxSteps: 2, // The maximum number of chained agent calls
-    },
-    tools: [weatherTool],
-  });
-
-  const prompt = "What is the weather in london?";
-  console.log(`User: ${prompt}`);
+  // getLocation, getWeather
+  console.log("Available tools:", Object.keys(tools).join(", "));
 
   const { error, data } = await agent.generateText({
-    prompt,
+    prompt: "What is the weather like in my location?",
+    maxSteps: 3,
   });
 
   if (error || !data) {
