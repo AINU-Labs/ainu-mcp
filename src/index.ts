@@ -4,7 +4,7 @@ import { createAgent } from "./agent";
 import { app } from "./app";
 
 // Wait until the server is up and listening on port 3000 before resolving.
-async function startServer() {
+function startServer() {
   return new Promise<void>((resolve, reject) => {
     app.listen(3000, (error) => {
       if (error) {
