@@ -42,9 +42,9 @@ The agent is built using [`@ainulabs/ainu`](https://github.com/AINU-Labs/ainu).
 This repository contains the following files:
 
 - `src/agent.ts`: Defines the agent and its capabilities.
-- `src/app.ts`: Sets up the application logic and integrates the agent.
-- `src/index.ts`: Entry point for the application.
-- `src/server.ts`: Configures and starts the server.
+- `src/app.ts`: Sets up the express 'remote' service as the gateway to the MCP server
+- `src/index.ts`: Orchestration function to run the example
+- `src/server.ts`: Creates the MCP server
 - `tests/index.test.ts`: Contains test cases for the application.
 
 This structure ensures modularity and clarity, making it easy to extend and maintain.
