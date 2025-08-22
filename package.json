@@ -1,14 +1,14 @@
 {
-  "name": "simple-ainu-agent",
+  "name": "ainu-mcp",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/AINU-Labs/simple-ainu-agent#readme",
+  "homepage": "https://github.com/AINU-Labs/ainu-mcp#readme",
   "bugs": {
-    "url": "https://github.com/AINU-Labs/simple-ainu-agent/issues"
+    "url": "https://github.com/AINU-Labs/ainu-mcp/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AINU-Labs/simple-ainu-agent.git"
+    "url": "git+https://github.com/AINU-Labs/ainu-mcp.git"
   },
   "license": "ISC",
   "author": "",
