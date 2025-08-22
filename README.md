@@ -1,67 +1,60 @@
-# AINU Starter Template
+# ainu-mcp
 
-This repository provides a minimal setup for building AI agents using the [`@ainulabs/ainu`](https://www.npmjs.com/package/@ainulabs/ainu) framework.
+This repository demonstrates how AINU agents can seamlessly use remote MCP server tools alongside local tools.
 
 ![AINU Banner](/public/ainubanner.png)
 
-## Table of Contents
+The agent is built using [`@ainulabs/ainu`](https://github.com/AINU-Labs/ainu).
 
-- [Features](#features)
-- [Usage](#usage)
-- [Overview](#overview)
-- [NPM Scripts](#scripts)
+## Getting Started
 
-## Features
+1. **Clone the repository:**
 
-- TypeScript support
-- Jest for testing
-- Example agent implementation
+   ```bash
+   git clone https://github.com/AINU-Labs/ainu-mcp.git
+   cd ainu-mcp
+   ```
 
-## Usage
-
-1. Install dependencies:
+2. **Install dependencies:**
 
    ```bash
    npm install
    ```
 
-2. Start developing:
+3. **Configure environment variables:**
 
-   ```bash
-   npm run dev
-   ```
+   - Copy `.env.example` to `.env`:
 
-3. Running the code:
+     ```bash
+     cp .env.example .env
+     ```
+
+   - Fill in your API keys in `.env`:
+     - `ANTHROPIC_API_KEY`: Your Anthropic API key for the AI agent.
+
+4. **Run the code:**
    ```bash
    npm start
    ```
 
 ## Overview
 
-The agent workflow consists of several key steps:
+This repository contains the following files:
 
-1.  **Provider Setup**: Configure a provider to handle communication with the underlying AI model.
-2.  **Tool Definition**: Create tools (such as a weather tool) that define specific tasks the agent can perform, including input validation and custom logic.
-3.  **Agent Creation**: Instantiate the agent, supplying the provider, tools, and settings to control its behavior and capabilities.
-4.  **Prompt Handling**: Send a prompt to the agent and receive a structured result, which may include multiple steps if the agent chains tool calls or reasoning steps.
-5.  **Result Processing**: Inspect the output, including any intermediate steps, to understand how the agent arrived at its final answer.
+- `src/agent.ts`: Defines the agent and its capabilities.
+- `src/app.ts`: Sets up the application logic and integrates the agent.
+- `src/index.ts`: Entry point for the application.
+- `src/server.ts`: Configures and starts the server.
+- `tests/index.test.ts`: Contains test cases for the application.
 
-This structure allows for flexible, modular agent design and clear separation of responsibilities.
+This structure ensures modularity and clarity, making it easy to extend and maintain.
 
 ### Sample Output
 
 ```
-User: What is the weather in london?
-Starting to fetch weather for london...
-Fetch duration: 1002ms
-AI: The weather in london is Sunny, 25°C.
+Server is running on http://localhost:3000
+Available tools: getLocation, getWeather
+AI: I'll help you find out the weather in your current location. First, I'll retrieve your location and then check the weather for you.
+AI: Now, I'll fetch the current weather for New York:
+AI: Based on the results, the current weather in your location (New York) is sunny. It looks like a nice day outside!
 ```
-
-## Scripts
-
-| Command         | Description                             |
-| --------------- | --------------------------------------- |
-| `npm run build` | Compile TypeScript to `dist/`           |
-| `npm start`     | Build and run the agent from `dist/`    |
-| `npm run dev`   | Run in watch mode for rapid development |
-| `npm test`      | Run tests with Jest                     |
