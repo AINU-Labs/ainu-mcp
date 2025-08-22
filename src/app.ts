@@ -1,12 +1,12 @@
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import Express from "express";
-import { createEchoServer } from "./server";
+import { createWeatherServer } from "./server";
 
 const app = Express();
 
 app.post("/mcp", async (req, res) => {
   try {
-    const server = createEchoServer();
+    const server = createWeatherServer();
 
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: undefined,
